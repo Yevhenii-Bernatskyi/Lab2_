@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!-- ДОДАТИ: Дозвіл для Foreground Service для Android 14 (API 34) і вище -->
+    <!-- Оберіть відповідний тип, якщо ваш targetSdk >= 34. -->
+    <!-- Для секундоміра "dataSync" підходить. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <!-- Якщо ваш targetSdk < 34, цей дозвіл не є строго обов'язковим, -->
+    <!-- але його додавання не зашкодить. -->
+
+    <!-- ДОДАТИ: Дозвіл на надсилання сповіщень (для Android 13, API 33, і вище) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Lab2_try"
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Lab2_try">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- ДОДАТИ: Оголошення нашого сервісу -->
+        <!-- Ми створимо клас StopwatchService пізніше -->
+        <service
+            android:name=".StopwatchService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+        <!-- android:foregroundServiceType обов'язковий з Android 10 (API 29) -->
+        <!-- "dataSync" підходить для оновлення даних, як у секундомірі. -->
+
+
+    </application>
+
+</manifest>
